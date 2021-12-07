@@ -4,7 +4,7 @@ import pandas as pd
 
 def connect():
     try:
-        print('We will be phasing out the vp_db.connect() command in favor of the vp_db.read_sql(sql, output) command in the future.')
+        print('We will be phasing out the vp_db.connect() command in favor of the vp_db.read_sql(sql, output) command in the future. If you use cnx = vp_db.connect(), please close your connection [cnx.close()] when you are finished querying data. Open connections will be manually closed each night to facilitate database replication.')
         return(pymysql.connect(user='dspublic', password='R3ad0nlY', host='129.114.52.174', port=3306, db='sjbrande_vpdb', read_timeout=600.0))
     except:
         pass
