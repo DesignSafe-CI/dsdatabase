@@ -9,12 +9,19 @@ def connect():
     except:
         pass
     
-def read_sql(sql, output):
+def read_sql(**kwargs):
+    if('sql' not in kwargs):
+        print('You must specify sql= in your argument list')
+        return
     try:
         cnx = pymysql.connect(user='dspublic', password='R3ad0nlY', host='129.114.52.174', port=3306, db='sjbrande_ngl_db')
     except:
         print('db connection failed')
         pass
+    if('output' in kwargs):
+        output = kwargs['output']
+    else:
+        output = 'DataFrame'
     if(output=='DataFrame'):
         try:
             data = pd.read_sql(sql, cnx)
