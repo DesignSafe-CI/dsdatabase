@@ -11,7 +11,7 @@ setuptools.setup(
     description="DesignSafe relational database connection scripts",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/sjbrandenberg/DesignSafe_db_scripts",
+    url="https://github.com/sjbrandenberg/designsafe_db",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
