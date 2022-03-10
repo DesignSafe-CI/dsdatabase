@@ -8,14 +8,22 @@ def connect():
     except:
         pass
     
-def read_sql(**kwargs):
-    if('sql' not in kwargs):
-        print('You must specify sql= in your argument list')
+def read_sql(*args):
+    if(len(args)<1):
+        print('You must specify a sql string in the read_sql function')
         return
-    if('output' in kwargs):
-        output = kwargs['output']
-    else:
+    if(len(args)>2):
+        print('You must only specify sql and type in the read_sql function')
+        return
+    sql = args[0]
+    if(len(args)==1):
         output = 'DataFrame'
+    else:
+        if(args[1] in ['DataFrame','dict']):
+            output = args[1]
+        else:
+            print('type "' + str(args[1]) + '" is not a valid option. Must be either "DataFrame" or "dict". Using "DataFrame" type as default.')
+    
     if(output=='DataFrame'):
         try:
             engine = sqlalchemy.create_engine('mysql+pymysql://dspublic:R3ad0nlY@129.114.52.174:3306/sjbrande_ngl_db')
