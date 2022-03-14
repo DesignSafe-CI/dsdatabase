@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="designsafe_db",
-    version="0.0.5",
+    version="0.0.6",
     author="Scott J. Brandenberg",
     author_email="sjbrandenberg@ucla.edu",
     description="DesignSafe relational database connection scripts",
