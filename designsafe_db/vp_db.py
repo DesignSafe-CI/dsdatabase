@@ -1,4 +1,3 @@
-# Establishes connection to NGL database from MySQL Workbench
 import pymysql
 import pandas as pd
 import sqlalchemy
