@@ -1,6 +1,7 @@
 import pymysql
 import pandas as pd
 import sqlalchemy
+from sqlalchemy import exc
 
 def connect():
     try:
@@ -30,8 +31,8 @@ def read_sql(*args):
             data = pd.read_sql_query(sql, con=engine)
             engine.dispose()
             return(data)
-        except:
-            print('pd.read_sql_query(sql, cnx) failed')
+        except exc.SQLAlchemyError as e:
+            print(e)
             pass
     elif(output=='dict'):
         try:
@@ -42,7 +43,7 @@ def read_sql(*args):
             cnx.close()
             return(data)
         except:
-            print('cur.fetchall() failed')
+            print("Error %d: %s" % (e.args[0], e.args[1]))
             pass
     else:
         print('In ngl_db.read_sql(sql, output), output must be either "DataFrame" or "dict", not "' + output + '"')
