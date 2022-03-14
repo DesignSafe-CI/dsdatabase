@@ -35,7 +35,8 @@ def read_sql(*args):
             print(e)
             pass
     elif(output=='dict'):
-        cnx = pymysql.connect(user='dspublic', password='R3ad0nlY', host='129.114.52.174', port=3306, db='sjbrande_vpdb')
+        try:
+            cnx = pymysql.connect(user='dspublic', password='R3ad0nlY', host='129.114.52.174', port=3306, db='sjbrande_vpdb')
             cur = cnx.cursor(pymysql.cursors.DictCursor)
             cur.execute(sql)
             data = cur.fetchall()
