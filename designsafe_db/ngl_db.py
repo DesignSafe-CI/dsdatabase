@@ -42,7 +42,7 @@ def read_sql(*args):
             data = cur.fetchall()
             cnx.close()
             return(data)
-        except:
+        except pymysql.Error as e:
             print("Error %d: %s" % (e.args[0], e.args[1]))
             pass
     else:
