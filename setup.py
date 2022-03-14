@@ -17,5 +17,8 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU Public License version 3",
         "Operating System :: OS Independent",
-    ]
+    ],
+    install_requires=[
+          'pymysql',
+      ],
 )
