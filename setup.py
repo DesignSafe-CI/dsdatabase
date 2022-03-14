@@ -19,6 +19,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-          'pymysql',
+        'pymysql',
+        'pandas',
+        'sqlalchemy'
       ],
 )
