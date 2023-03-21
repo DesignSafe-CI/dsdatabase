@@ -37,8 +37,7 @@ def read_sql(*args):
     if(output=='DataFrame'):
         try:
             engine = sqlalchemy.create_engine('mysql+pymysql://dspublic:R3ad0nlY@129.114.52.174:3306/post_earthquake_recovery')
-            with engine.begin() as con:
-                data = pd.read_sql_query(sql=text(sql), con=engine)
+            data = pd.DataFrame(engine.connect().execute(text(sql)))
             engine.dispose()
             return(data)
         except exc.SQLAlchemyError as e:
