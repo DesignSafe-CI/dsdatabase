@@ -37,7 +37,8 @@ def read_sql(*args):
     if(output=='DataFrame'):
         try:
             engine = sqlalchemy.create_engine('mysql+pymysql://dspublic:R3ad0nlY@129.114.52.174:3306/post_earthquake_recovery')
-            data = pd.read_sql_query(text(sql), con=engine)
+            with engine.begin() as con:
+                data = pd.read_sql_query(sql=text(sql), con=engine)
             engine.dispose()
             return(data)
         except exc.SQLAlchemyError as e:
@@ -47,7 +48,7 @@ def read_sql(*args):
         try:
             cnx = pymysql.connect(user='dspublic', password='R3ad0nlY', host='129.114.52.174', port=3306, db='post_earthquake_recovery')
             cur = cnx.cursor(pymysql.cursors.DictCursor)
-            cur.execute(text(sql))
+            cur.execute(sql)
             data = cur.fetchall()
             cnx.close()
             return(data)
