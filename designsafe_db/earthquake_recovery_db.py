@@ -10,7 +10,7 @@
 import pymysql
 import pandas as pd
 import sqlalchemy
-from sqlalchemy import exc
+from sqlalchemy import exc, text
 
 def connect():
     try:
