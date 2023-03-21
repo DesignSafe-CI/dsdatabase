@@ -37,7 +37,7 @@ def read_sql(*args):
     if(output=='DataFrame'):
         try:
             engine = sqlalchemy.create_engine('mysql+pymysql://dspublic:R3ad0nlY@129.114.52.174:3306/post_earthquake_recovery')
-            data = pd.read_sql_query(sql, con=engine)
+            data = pd.read_sql_query(text(sql), con=engine)
             engine.dispose()
             return(data)
         except exc.SQLAlchemyError as e:
@@ -55,5 +55,5 @@ def read_sql(*args):
             print("Error %d: %s" % (e.args[0], e.args[1]))
             pass
     else:
-        print('In earthquake_recovery_db.read_sql(sql, output), output must be either "DataFrame" or "dict", not "' + output + '"')
+        print('In earthquake_recovery_db.read_sql(text(sql), output), output must be either "DataFrame" or "dict", not "' + output + '"')
         return
