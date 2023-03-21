@@ -47,7 +47,7 @@ def read_sql(*args):
         try:
             cnx = pymysql.connect(user='dspublic', password='R3ad0nlY', host='129.114.52.174', port=3306, db='post_earthquake_recovery')
             cur = cnx.cursor(pymysql.cursors.DictCursor)
-            cur.execute(sql)
+            cur.execute(text(sql))
             data = cur.fetchall()
             cnx.close()
             return(data)
