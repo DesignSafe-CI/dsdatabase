@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
 
-from config import db_config
+from .config import db_config
 
 
 class DSDatabase:
