@@ -9,12 +9,21 @@
 
 Connects to SQL databases on DesignSafe:
 
-| Database | dbname |
-|----------|--------|
-| NGL | `ngl`|
-| Earthake Recovery | `eq` |
-| Vp | `vp` |
+| Database | dbname | env_prefix |
+|----------|--------|------------|
+| NGL | `ngl`| `NGL_` |
+| Earthake Recovery | `eq` | `EQ_` |
+| Vp | `vp` | `VP_` |
 
+Define the following environment variables:
+```
+{env_prefix}DB_USER
+{env_prefix}DB_PASSWORD
+{env_prefix}DB_HOST
+{env_prefix}DB_PORT
+```
+
+For e.g., to add the environment variable `NGL_DB_USER` edit `~/.bashrc`, `~/.zshrc`, or a similar shell-specific configuration file for the current user and add `export NGL_DB_USER="dspublic"`.
 
 ## Installation
 
