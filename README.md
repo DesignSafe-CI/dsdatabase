@@ -32,7 +32,12 @@ pip install git+https://github.com/DesignSafe-CI/dsdatabase.git --quiet
 
 ## Example usage:
 ```python
-db = DSDatabase(dbname="ngl")
+from dsdatabase.db import DSDatabase
+
+db = DSDatabase("ngl")
+sql = 'SELECT * FROM SITE'
+df = db.read_sql(sql)
+print(df)
 
 # Optionally, close the database connection when done
 db.close()
