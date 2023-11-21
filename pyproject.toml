@@ -6,7 +6,7 @@ authors = ["Scott Brandenberg <sjbrandenberg@ucla.edu>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.8"
 pandas = "^2.1.3"
 pymysql = "^1.1.0"
 sqlalchemy = "^2.0.23"
