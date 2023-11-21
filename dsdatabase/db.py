@@ -4,6 +4,8 @@ from sqlalchemy import create_engine, exc
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import text
 
+from config import db_config
+
 
 class DSDatabase:
     """A database utility class for connecting to a DesignSafe SQL database.
@@ -29,12 +31,6 @@ class DSDatabase:
         Args:
             dbname (str): Shorthand for the database name. Must be one of 'ngl', 'vp', or 'eq'.
         """
-        # Mapping of shorthand names to actual database names and environment prefixes
-        db_config = {
-            "ngl": {"dbname": "sjbrande_ngl_db", "env_prefix": "NGL_"},
-            "vp": {"dbname": "sjbrande_vpdb", "env_prefix": "VP_"},
-            "eq": {"dbname": "post_earthquake_recovery", "env_prefix": "EQ_"},
-        }
 
         if dbname not in db_config:
             raise ValueError(
