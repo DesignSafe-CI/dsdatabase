@@ -31,11 +31,8 @@ pip install git+https://github.com/DesignSafe-CI/dsdatabase.git --quiet
 ```
 
 ## Example usage:
-```
-db = DSDatabase(dbname="mydatabase")
-with db.Session() as session:
-    # Perform database operations
-    pass  # replace with actual operations
+```python
+db = DSDatabase(dbname="ngl")
 
 # Optionally, close the database connection when done
 db.close()
