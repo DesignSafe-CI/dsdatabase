@@ -1,1 +1,0 @@
-name = 'designsafe_db'
