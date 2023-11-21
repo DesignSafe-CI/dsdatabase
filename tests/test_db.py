@@ -19,8 +19,35 @@ class MockRowProxy:
 class TestDSDatabase(unittest.TestCase):
     def setUp(self):
         self.mock_connection = MagicMock()
-        self.db = DSDatabase(dbname="sjbrande_ngl_db")
+        self.db = DSDatabase(dbname="ngl")
         self.db.engine.connect = MagicMock(return_value=self.mock_connection)
+
+    @patch.dict(
+        "os.environ", {"NGL_DB_USER": "ngl_user", "NGL_DB_PASSWORD": "ngl_pass"}
+    )
+    def test_init_with_valid_dbname_ngl(self):
+        db = DSDatabase(dbname="ngl")
+        self.assertEqual(db.user, "ngl_user")
+        self.assertEqual(db.password, "ngl_pass")
+        self.assertEqual(db.db, "sjbrande_ngl_db")
+
+    @patch.dict("os.environ", {"VP_DB_USER": "vp_user", "VP_DB_PASSWORD": "vp_pass"})
+    def test_init_with_valid_dbname_vp(self):
+        db = DSDatabase(dbname="vp")
+        self.assertEqual(db.user, "vp_user")
+        self.assertEqual(db.password, "vp_pass")
+        self.assertEqual(db.db, "sjbrande_vpdb")
+
+    @patch.dict("os.environ", {"EQ_DB_USER": "eq_user", "EQ_DB_PASSWORD": "eq_pass"})
+    def test_init_with_valid_dbname_eq(self):
+        db = DSDatabase(dbname="eq")
+        self.assertEqual(db.user, "eq_user")
+        self.assertEqual(db.password, "eq_pass")
+        self.assertEqual(db.db, "post_earthquake_recovery")
+
+    def test_init_with_invalid_dbname(self):
+        with self.assertRaises(ValueError):
+            DSDatabase(dbname="invalid")
 
     @patch("pandas.read_sql_query")
     def test_read_sql_returns_dataframe(self, mock_read_sql_query):

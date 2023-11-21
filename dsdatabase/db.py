@@ -23,33 +23,37 @@ class DSDatabase:
         Session (sessionmaker): SQLAlchemy session maker bound to the engine.
     """
 
-    def __init__(self, dbname="sjbrande_ngl_db"):
+    def __init__(self, dbname="ngl"):
         """Initializes the DSDatabase instance with environment variables and creates the database engine.
 
         Args:
-            dbname (str): Database name. Must be one of 'sjbrande_ngl_db', 'sjbrande_vpdb', or 'post_earthquake_recovery'.
+            dbname (str): Shorthand for the database name. Must be one of 'ngl', 'vp', or 'eq'.
         """
-        allowed_dbnames = [
-            "sjbrande_ngl_db",
-            "sjbrande_vpdb",
-            "post_earthquake_recovery",
-        ]
-        if dbname not in allowed_dbnames:
+        # Mapping of shorthand names to actual database names and environment prefixes
+        db_config = {
+            "ngl": {"dbname": "sjbrande_ngl_db", "env_prefix": "NGL_"},
+            "vp": {"dbname": "sjbrande_vpdb", "env_prefix": "VP_"},
+            "eq": {"dbname": "post_earthquake_recovery", "env_prefix": "EQ_"},
+        }
+
+        if dbname not in db_config:
             raise ValueError(
-                f"Invalid database name '{dbname}'. Allowed names are: {', '.join(allowed_dbnames)}"
+                f"Invalid database shorthand '{dbname}'. Allowed shorthands are: {', '.join(db_config.keys())}"
             )
 
-        self.user = os.getenv("DB_USER", "dspublic")
-        self.password = os.getenv("DB_PASSWORD", "R3ad0nlY")
-        self.host = os.getenv("DB_HOST", "129.114.52.174")
-        self.port = os.getenv("DB_PORT", 3306)
-        self.db = dbname
-        self.recycle_time = 3600  # 1 hour in seconds
+        config = db_config[dbname]
+        env_prefix = config["env_prefix"]
+
+        self.user = os.getenv(f"{env_prefix}DB_USER", "dspublic")
+        self.password = os.getenv(f"{env_prefix}DB_PASSWORD", "R3ad0nlY")
+        self.host = os.getenv(f"{env_prefix}DB_HOST", "129.114.52.174")
+        self.port = os.getenv(f"{env_prefix}DB_PORT", 3306)
+        self.db = config["dbname"]
 
         # Setup the database connection
         self.engine = create_engine(
             f"mysql+pymysql://{self.user}:{self.password}@{self.host}:{self.port}/{self.db}",
-            pool_recycle=self.recycle_time,
+            pool_recycle=3600,  # 1 hour in seconds
         )
         self.Session = sessionmaker(bind=self.engine)
 
@@ -88,3 +92,7 @@ class DSDatabase:
             raise Exception(f"SQLAlchemyError: {e}")
         finally:
             session.close()
+
+    def close(self):
+        """Close the database connection."""
+        self.engine.dispose()
