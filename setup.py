@@ -18,9 +18,5 @@ setuptools.setup(
         "License :: OSI Approved :: GNU Public License version 3",
         "Operating System :: OS Independent",
     ],
-    install_requires=[
-        'pymysql',
-        'pandas',
-        'sqlalchemy'
-      ],
+    install_requires=["pymysql", "pandas", "sqlalchemy"],
 )
